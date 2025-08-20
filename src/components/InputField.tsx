@@ -3,7 +3,7 @@ import { BsThreeDots } from 'react-icons/bs'
 
 const InputField = () => {
   return (
-    <div className='mx-auto my-0 flex border-2 w-3xl px-1.5 justify-between items-center '>
+    <div className='mx-auto my-0 border-2 w-3xl px-1.5 justify-between items-center flex'>
       <div className="flex grow">
         <input type="text" className=" w-full focus:outline-none focus:ring-0" />
       </div>
