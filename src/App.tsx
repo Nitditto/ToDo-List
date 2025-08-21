@@ -14,7 +14,7 @@ function App() {
       <InputField addTodo={addTodo} editOut={out} editSetOut={setOut}/>
       <div className="mx-auto my-3 w-3xl py-2 px-2 border-2 ">
         {todo.map((i, index) => 
-           <Todo todoName={i['name']} todoDes={i['des']} todoDue={i['due']} key={index} />
+           <Todo editOut={out} editSetOut={setOut} todoName={i['name']} todoDes={i['des']} todoDue={i['due']} key={index} />
         )}
       </div>
       <EditWindow editOut={out} editSetOut={setOut}/>

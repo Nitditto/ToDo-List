@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
+import { Button } from "./ui/button";
 const EditWindow = ( {editOut, editSetOut} ) => {
   const [date, setDate] = useState(new Date());
   const toggleOut = () => {
@@ -31,6 +32,10 @@ const EditWindow = ( {editOut, editSetOut} ) => {
                   fixedWeeks={true}
                   className="h- w-[50%] p-0"
                 />
+              </div>
+              <div className="flex items-center space-x-2 justify-end mt-2">
+                <Button className="">Cancel</Button>
+                <Button className="" variant="destructive">Accept</Button>
               </div>
             </div>
           </div>

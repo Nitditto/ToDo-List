@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
+import { Button } from "./ui/button";
 
-const Todo = ({ todoName, todoDes, todoDue }) => {
+const Todo = ({ todoName, todoDes, todoDue, editOut,editSetOut }) => {
   const [isopen, setIsopen] = useState(false);
   const toggleDropdown = () => {
     setIsopen(!isopen);
@@ -10,6 +11,11 @@ const Todo = ({ todoName, todoDes, todoDue }) => {
   const toggleChecked = () => {
     setChecked(!checked);
   };
+  
+  const handleDelete = (id) => {
+    const dataTodoNew = dataTodo.filter(item => item.id !== id);
+    setDataTodo(dataTodoNew);
+  }
   return (
     <div className="my-6">
       <div className="mx-auto my-0 h-16 border-2 p-3">
@@ -42,12 +48,12 @@ const Todo = ({ todoName, todoDes, todoDue }) => {
             <div className="">Due:</div>
             <div className="">{todoDue}</div>
           </div>
-          <button className="rounded-[8px] bg-blue-300 p-2.5 text-white">
+          <Button onClick={()=>editSetOut(!editOut)} className="p-3 w-[60px] mr-2">
             Edit
-          </button>
-          <button className="rounded-[8px] bg-red-300 p-2.5 text-white">
+          </Button>
+          <Button className="p-3 w-[60px]" variant="destructive">
             Delete
-          </button>
+          </Button>
         </div>
       </div>
     </div>
