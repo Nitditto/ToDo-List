@@ -1,23 +1,31 @@
 import { useState } from 'react'
 import InputField from './components/InputField'
-import Todo from './components/Todo'
-import EditWindow from './components/EditWindow'
-
+import Todo from "./components/Todo"
+import EditWindow from "./components/EditWindow"
 function App() {
   const [todo, setTodo] = useState([])
-  const addTodo = e => {
-    setTodo([...todo, e])
-  }
-  const [out, setOut] = useState(true);
+  const [out, setOut] = useState(false);
+  const [current, setCurrent] = useState({})
   return (
     <>
-      <InputField addTodo={addTodo} editOut={out} editSetOut={setOut}/>
+      <InputField editCurrent={current} setEditCurrent={setCurrent} TodoList={todo} setTodoList={setTodo} editOut={out} setEditOut={setOut}/>
       <div className="mx-auto my-3 w-3xl py-2 px-2 border-2 ">
-        {todo.map((i, index) => 
-           <Todo editOut={out} editSetOut={setOut} todoName={i['name']} todoDes={i['des']} todoDue={i['due']} key={index} />
-        )}
+        {todo.map(i => 
+            <Todo 
+              uuid={i['uuid']}
+              key={i['uuid']}
+              name={i['name']}
+              description={i['description']}
+              dueDate={i['dueDate']}
+              editOut={out} 
+              setEditOut={setOut} 
+              editCurrent={current}
+              setEditCurrent={setCurrent}
+              />
+          )}
       </div>
-      <EditWindow editOut={out} editSetOut={setOut}/>
+      <EditWindow current={current}
+      setCurrent={setCurrent} todoList={todo} setTodoList={setTodo} out={out} setOut={setOut} />
     </>
   )
 }
