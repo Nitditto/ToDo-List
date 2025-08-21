@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import { Button } from "./ui/button";
+import { deleteTodo } from "@/lib/todoUtils";
 
-const Todo = ({ uuid, name, description, dueDate, editOut, setEditOut, setEditCurrent}) => {
+const Todo = ({ uuid, name, description, dueDate, editOut, setEditOut, setEditCurrent, todoList,setTodoList}) => {
   const [isopen, setIsopen] = useState(false);
   const toggleDropdown = () => {
     setIsopen(!isopen);
@@ -49,7 +50,11 @@ const Todo = ({ uuid, name, description, dueDate, editOut, setEditOut, setEditCu
           }} className="p-3 w-[60px] mr-2">
             Edit
           </Button>
-          <Button className="p-3 w-[60px]" variant="destructive">
+          <Button
+          onClick={()=>{
+            deleteTodo(todoList,setTodoList,uuid)
+          }}
+          className="p-3 w-[60px]" variant="destructive">
             Delete
           </Button>
         </div>

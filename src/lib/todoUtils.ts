@@ -3,13 +3,13 @@ const addTodo = (todoList, setTodoList, newTodoObj) => {
 }
 
 const editTodo = (todoList, setTodoList, todoKey, newTodoObj) => {
-    const todoIndex = todoList.findIndex(i=>i.uuid===todoKey)
+    const todoIndex = todoList.findIndex(item=>item.uuid===todoKey)
     todoList[todoIndex] = newTodoObj
     setTodoList(todoList) 
 }
 const deleteTodo = (todoList, setTodoList, todoKey) => {
-    const todoIndex = todoList.findIndex(i=>i.uuid===todoKey)
-    todoList.splice(todoList[todoIndex], 1)
+    const todo = todoList.find(item=>item.uuid===todoKey)
+    todoList = todoList.filter(item=>item!==todo)
     setTodoList(todoList)
 }
 export {

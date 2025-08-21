@@ -11,7 +11,7 @@ const InputField = ( {TodoList, setTodoList, editOut, setEditOut, editCurrent, s
     description: "",
     dueDate: new Date(0)
   })
-   console.log(todo)
+  //  console.log(todo)
   useEffect(() => setEditCurrent(todo), [todo])
   const handelKeyDown=(event)=>{
     if(event.key=="Enter" && todo.name.trim()!==""){

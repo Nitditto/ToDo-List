@@ -21,6 +21,8 @@ function App() {
               setEditOut={setOut} 
               editCurrent={current}
               setEditCurrent={setCurrent}
+              todoList={todo}
+              setTodoList={setTodo}
               />
           )}
       </div>
