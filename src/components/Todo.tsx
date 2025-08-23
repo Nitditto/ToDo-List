@@ -1,9 +1,19 @@
 import { useState } from "react";
-import { FaAngleDown } from "react-icons/fa";
+import { FaAngleDown, FaRegEdit, FaTrash } from "react-icons/fa";
 import { Button } from "./ui/button";
-import { deleteTodo } from "@/lib/todoUtils";
+import { deleteTodo, checkDueDate } from "@/lib/todoUtils";
 
-const Todo = ({ uuid, name, description, dueDate, editOut, setEditOut, setEditCurrent, todoList,setTodoList}) => {
+const Todo = ({
+  uuid,
+  name,
+  description,
+  dueDate,
+  editOut,
+  setEditOut,
+  setEditCurrent,
+  todoList,
+  setTodoList,
+}) => {
   const [isopen, setIsopen] = useState(false);
   const toggleDropdown = () => {
     setIsopen(!isopen);
@@ -12,11 +22,13 @@ const Todo = ({ uuid, name, description, dueDate, editOut, setEditOut, setEditCu
   const toggleChecked = () => {
     setChecked(!checked);
   };
+
   return (
     <div className="my-6">
       <div className="mx-auto my-0 h-16 border-2 p-3">
-        <div className="flex items-center justify-center">
+        <div className="group flex items-center justify-between">
           <input
+            disabled={checkDueDate(todoList, uuid) ? true : undefined}
             onClick={toggleChecked}
             type="checkbox"
             name="checkbox"
@@ -25,11 +37,26 @@ const Todo = ({ uuid, name, description, dueDate, editOut, setEditOut, setEditCu
           />
           <label
             htmlFor={uuid}
-            className={`${checked ? "line-through" : ""} ml-4 inline-flex flex-1 text-2xl`}
+            className={`${checked ? "line-through text-green-600" : ""} ml-4 line-clamp-1 inline-flex flex-1 text-2xl ${checkDueDate(todoList, uuid) ? "text-red-500 line-through" : ""}`}
           >
             {name}
           </label>
-          <FaAngleDown onClick={toggleDropdown} className="size-8" />
+          <div className="ml-4 flex items-center space-x-2">
+            <FaRegEdit
+              onClick={() => {
+                setEditCurrent({ uuid, name, description, dueDate });
+                setEditOut(!editOut);
+              }}
+              className="hidden size-7 cursor-pointer group-hover:block"
+            />
+            <FaTrash
+              onClick={() => {
+                deleteTodo(todoList, setTodoList, uuid);
+              }}
+              className="hidden size-6 cursor-pointer group-hover:block"
+            />
+            <FaAngleDown onClick={toggleDropdown} className="size-8" />
+          </div>
         </div>
       </div>
       <div
@@ -39,22 +66,32 @@ const Todo = ({ uuid, name, description, dueDate, editOut, setEditOut, setEditCu
       >
         <div className="h-auto border-2 border-amber-800 p-2">
           <div className="flex h-auto flex-col">
+            <div className="text-xl break-words">Name: {name}</div>
             <div className="text-xl">Descprition:</div>
-            <div className="">{description !== "" ? description : "None"}</div>
+            <div className="text-xl break-words">
+              {description !== "" ? description : "None"}
+            </div>
             <div className="text-xl">Due:</div>
-            <div className="">{dueDate.valueOf() !== 0 ? dueDate.toDateString() : "Never"}</div>
+            <div className="text-xl">
+              {dueDate.valueOf() !== 0 ? dueDate.toDateString() : "Never"}
+            </div>
           </div>
-          <Button onClick={()=>{
-            setEditCurrent({uuid, name, description, dueDate})
-            setEditOut(!editOut)
-          }} className="p-3 w-[60px] mr-2">
+          <Button
+            onClick={() => {
+              setEditCurrent({ uuid, name, description, dueDate });
+              setEditOut(!editOut);
+            }}
+            className="mr-2 w-[60px] p-3"
+          >
             Edit
           </Button>
           <Button
-          onClick={()=>{
-            deleteTodo(todoList,setTodoList,uuid)
-          }}
-          className="p-3 w-[60px]" variant="destructive">
+            onClick={() => {
+              deleteTodo(todoList, setTodoList, uuid);
+            }}
+            className="w-[60px] p-3"
+            variant="destructive"
+          >
             Delete
           </Button>
         </div>

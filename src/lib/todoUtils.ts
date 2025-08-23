@@ -12,6 +12,10 @@ const deleteTodo = (todoList, setTodoList, todoKey) => {
     todoList = todoList.filter(item=>item!==todo)
     setTodoList(todoList)
 }
+const checkDueDate = (todoList, todoKey) =>{
+    const todo = todoList.find(item=>item.uuid===todoKey)
+    return todo.dueDate.valueOf()!== 0 && todo.dueDate.valueOf() < Date.now()
+}
 export {
-    addTodo, editTodo, deleteTodo
+    addTodo, editTodo, deleteTodo, checkDueDate
 }
